@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="ar" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="العسل الملكي للرجال - منتج فاخر للقوة والحيوية | Royal Honey for Men - Premium Vitality">
+<meta name="keywords" content="عسل ملكي, عسل للرجال, royal honey, men vitality, premium honey, قوة, حيوية, طاقة">
+<meta name="theme-color" content="#0A0604">
+<title>العسل الملكي للرجال | Royal Honey for Men</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+--honey:#D4943A;--honey-light:#F0C36E;--honey-soft:#F8DFA0;--honey-deep:#B87A24;--honey-dark:#8B5A1B;--honey-glow:rgba(212,148,58,.22);
+--amber:#E8A849;--amber-light:#F5CB7A;
+--crimson:#8B1A1A;--crimson-light:#B52828;--crimson-glow:rgba(139,26,26,.12);
+--obsidian:#0A0604;--obsidian-mid:#120E08;--obsidian-light:#1A1410;--obsidian-warm:#1E1610;
+--ivory:#FAF4EB;--ivory-warm:#F0E6D6;
+--bronze:#C4955A;--bronze-light:#D8B07A;
+--silver:#8A7E72;--silver-light:#A89E92;
+--glass:rgba(255,255,255,.03);--glass-border:rgba(255,255,255,.055);--glass-hover:rgba(255,255,255,.05);
+--accent-gradient:linear-gradient(135deg,var(--honey),var(--honey-deep));
+--warm-gradient:linear-gradient(135deg,var(--honey-light),var(--honey),var(--honey-deep));
+}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:'Inter','Tajawal',sans-serif;background:var(--obsidian);color:var(--ivory);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--obsidian)}
+::-webkit-scrollbar-thumb{background:var(--accent-gradient);border-radius:10px}
+::selection{background:var(--honey);color:var(--obsidian)}
+
+/* ===== LOADER ===== */
+#loader{position:fixed;inset:0;background:var(--obsidian);z-index:100000;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 1s cubic-bezier(.4,0,.2,1),visibility 1s}
+#loader.done{opacity:0;visibility:hidden;pointer-events:none}
+.ld-icon{font-size:3.5rem;margin-bottom:20px;opacity:0;animation:ldIn .8s ease forwards .2s;filter:drop-shadow(0 0 30px rgba(212,148,58,.4))}
+.ld-brand{font-family:'Amiri',serif;font-size:clamp(1.8rem,4.5vw,3rem);font-weight:700;color:var(--honey-light);opacity:0;animation:ldIn .8s ease forwards .4s;text-shadow:0 0 40px rgba(212,148,58,.2)}
+.ld-tag{font-size:.55rem;letter-spacing:6px;text-transform:uppercase;color:var(--silver);margin-top:8px;opacity:0;animation:ldIn .8s ease forwards .6s}
+.ld-honey-drip{margin-top:36px;display:flex;gap:6px;align-items:flex-end;opacity:0;animation:ldIn .8s ease forwards .7s}
+.ld-honey-drip span{display:block;width:4px;border-radius:4px;background:var(--accent-gradient);animation:honeyDrip 1.4s ease-in-out infinite}
+.ld-honey-drip span:nth-child(1){height:14px;animation-delay:0s}
+.ld-honey-drip span:nth-child(2){height:22px;animation-delay:.15s}
+.ld-honey-drip span:nth-child(3){height:30px;animation-delay:.3s}
+.ld-honey-drip span:nth-child(4){height:38px;animation-delay:.45s}
+.ld-honey-drip span:nth-child(5){height:30px;animation-delay:.6s}
+.ld-honey-drip span:nth-child(6){height:22px;animation-delay:.75s}
+.ld-honey-drip span:nth-child(7){height:14px;animation-delay:.9s}
+@keyframes honeyDrip{0%,100%{transform:scaleY(1);opacity:.4}50%{transform:scaleY(1.5);opacity:1}}
+.ld-pct{font-family:'Inter',sans-serif;font-size:.65rem;letter-spacing:4px;color:var(--honey);margin-top:18px;opacity:0;animation:ldIn .8s ease forwards .8s;font-variant-numeric:tabular-nums}
+@keyframes ldIn{to{opacity:1}}
+
+/* ===== CURSOR ===== */
+.cur-ring{position:fixed;width:36px;height:36px;border:1.5px solid var(--honey);border-radius:50%;pointer-events:none;z-index:99999;transition:transform .18s ease;mix-blend-mode:difference}
+.cur-dot{position:fixed;width:5px;height:5px;background:var(--honey);border-radius:50%;pointer-events:none;z-index:99999}
+@media(max-width:1024px){.cur-ring,.cur-dot{display:none}}
+
+/* ===== CANVAS ===== */
+#c3d{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+/* ===== NAV ===== */
+.nav{position:fixed;top:0;left:0;width:100%;z-index:9999;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;transition:all .5s cubic-bezier(.4,0,.2,1)}
+.nav.fixed{background:rgba(10,6,4,.94);backdrop-filter:blur(30px) saturate(1.5);border-bottom:1px solid var(--glass-border);padding:14px 48px}
+.nav-logo{font-family:'Amiri',serif;font-size:1.2rem;font-weight:700;color:var(--honey-light);text-decoration:none;transition:opacity .3s;display:flex;align-items:center;gap:8px}
+.nav-logo span{font-size:1.1rem}
+.nav-logo:hover{opacity:.8}
+.nav-links{display:flex;align-items:center;gap:30px}
+.nav-links a{color:var(--silver-light);text-decoration:none;font-size:.67rem;letter-spacing:2.5px;text-transform:uppercase;font-weight:500;transition:color .3s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-5px;left:0;width:0;height:1px;background:var(--honey);transition:width .3s}
+.nav-links a:hover{color:var(--honey-light)}
+.nav-links a:hover::after{width:100%}
+.nav-cta{background:var(--accent-gradient)!important;color:var(--obsidian)!important;padding:10px 26px!important;border-radius:40px!important;font-weight:700!important;letter-spacing:1.5px!important;transition:transform .3s,box-shadow .3s!important}
+.nav-cta::after{display:none!important}
+.nav-cta:hover{transform:scale(1.06)!important;box-shadow:0 8px 35px var(--honey-glow)!important}
+.ham{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.ham span{display:block;width:22px;height:1.5px;background:var(--honey-light);transition:all .3s}
+.mnav{display:none;position:fixed;inset:0;background:rgba(10,6,4,.98);backdrop-filter:blur(40px);z-index:9998;flex-direction:column;align-items:center;justify-content:center;gap:28px}
+.mnav.open{display:flex}
+.mnav a{font-family:'Tajawal',sans-serif;color:var(--ivory);text-decoration:none;font-size:1.4rem;letter-spacing:3px;font-weight:500;transition:color .3s}
+.mnav a:hover{color:var(--honey)}
+.mnav-x{position:absolute;top:22px;right:28px;background:none;border:none;color:var(--honey);font-size:2rem;cursor:pointer}
+@media(max-width:960px){.nav-links{display:none}.ham{display:flex}.nav{padding:16px 20px}}
+
+/* ===== HERO ===== */
+.hero{position:relative;min-height:100vh;min-height:100dvh;display:flex;align-items:center;z-index:1;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-15%;right:-8%;width:65%;height:130%;background:radial-gradient(ellipse at 60% 45%,rgba(212,148,58,.06) 0%,transparent 55%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:30%;background:linear-gradient(to top,var(--obsidian),transparent);pointer-events:none;z-index:1}
+.hero-in{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1480px;margin:0 auto;padding:140px 64px 100px;gap:50px;position:relative;z-index:2}
+.hero-left{flex:1;z-index:2;max-width:640px}
+.h-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 20px;border:1px solid rgba(212,148,58,.3);border-radius:40px;font-size:.58rem;letter-spacing:3px;text-transform:uppercase;color:var(--honey);margin-bottom:28px;backdrop-filter:blur(6px);background:rgba(212,148,58,.04);font-family:'Tajawal',sans-serif}
+.h-badge-dot{width:6px;height:6px;background:var(--honey);border-radius:50%;box-shadow:0 0 10px var(--honey);animation:dotP 2s ease-in-out infinite}
+@keyframes dotP{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
+.h-title{font-family:'Amiri',serif;font-size:clamp(2.6rem,6vw,5.5rem);font-weight:700;line-height:1.1;margin-bottom:22px;direction:rtl;text-align:right}
+.h-title .t-honey{background:var(--warm-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.h-title .t-ivory{color:var(--ivory)}
+.h-sub{font-family:'Tajawal',sans-serif;font-size:1rem;color:var(--silver-light);line-height:2.1;margin-bottom:44px;font-weight:400;max-width:500px;direction:rtl;text-align:right}
+.h-btns{display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:flex-end;direction:rtl}
+.btn-p{display:inline-flex;align-items:center;gap:10px;padding:17px 44px;background:var(--accent-gradient);color:var(--obsidian);font-weight:700;font-size:.78rem;letter-spacing:2px;text-transform:uppercase;border:none;border-radius:50px;cursor:pointer;text-decoration:none;transition:all .4s;position:relative;overflow:hidden;font-family:'Tajawal',sans-serif}
+.btn-p::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);transition:left .5s}
+.btn-p:hover::before{left:100%}
+.btn-p:hover{transform:translateY(-3px);box-shadow:0 18px 55px var(--honey-glow)}
+.btn-g{display:inline-flex;align-items:center;gap:10px;padding:17px 44px;background:transparent;color:var(--ivory);font-weight:500;font-size:.78rem;letter-spacing:2px;text-transform:uppercase;border:1px solid var(--glass-border);border-radius:50px;cursor:pointer;text-decoration:none;transition:all .4s;backdrop-filter:blur(6px);font-family:'Tajawal',sans-serif}
+.btn-g:hover{border-color:var(--honey);color:var(--honey);transform:translateY(-3px)}
+.hero-right{flex:1;display:flex;align-items:center;justify-content:center;position:relative;z-index:2}
+.h-img-wrap{position:relative;width:100%;max-width:520px}
+.h-img{width:100%;border-radius:24px;position:relative;z-index:3;animation:hFloat 7s ease-in-out infinite;filter:drop-shadow(0 30px 70px rgba(212,148,58,.18))}
+.h-orb{position:absolute;border-radius:50%;filter:blur(70px);z-index:1;animation:orbDr 12s ease-in-out infinite}
+.h-orb-1{width:340px;height:340px;background:var(--honey);opacity:.14;top:-14%;right:-20%;animation-delay:0s}
+.h-orb-2{width:240px;height:240px;background:var(--crimson);opacity:.08;bottom:-10%;left:-14%;animation-delay:3s}
+.h-orb-3{width:180px;height:180px;background:var(--amber);opacity:.1;top:35%;left:-24%;animation-delay:5s}
+.h-orbit{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border:1px solid rgba(212,148,58,.05);border-radius:50%;pointer-events:none;z-index:2}
+.h-orbit:nth-child(5){width:116%;height:116%;animation:orSp 32s linear infinite}
+.h-orbit:nth-child(6){width:138%;height:138%;animation:orSp 45s linear infinite reverse}
+.h-orbit::after{content:'';position:absolute;top:0;left:50%;width:5px;height:5px;background:var(--honey);border-radius:50%;transform:translateX(-50%);box-shadow:0 0 14px var(--honey)}
+@keyframes hFloat{0%,100%{transform:translateY(0)}33%{transform:translateY(-18px)}66%{transform:translateY(-9px)}}
+@keyframes orbDr{0%,100%{transform:translate(0,0)}33%{transform:translate(14px,-20px)}66%{transform:translate(-12px,14px)}}
+@keyframes orSp{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.scroll-ind{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;z-index:3}
+.scroll-ind span{font-size:.55rem;letter-spacing:4px;text-transform:uppercase;color:var(--silver)}
+.scroll-ln{width:1px;height:32px;background:linear-gradient(to bottom,var(--honey),transparent);animation:scA 2s ease-in-out infinite}
+@keyframes scA{0%,100%{opacity:1;transform:scaleY(1)}50%{opacity:.2;transform:scaleY(.4)}}
+@media(max-width:960px){
+.hero-in{flex-direction:column-reverse;padding:130px 22px 60px;text-align:center;gap:30px}
+.h-title{text-align:center;direction:rtl}.h-sub{text-align:center;margin:0 auto 44px;direction:rtl}
+.h-btns{justify-content:center}
+.h-img-wrap{max-width:300px}
+.h-orb-1{width:180px;height:180px}.h-orb-2{width:120px;height:120px}.h-orb-3{width:80px;height:80px}
+}
+
+/* ===== SECTION ===== */
+.sect{position:relative;z-index:1;padding:130px 22px}
+.sect-in{max-width:1200px;margin:0 auto}
+.s-badge{display:inline-block;padding:7px 20px;border:1px solid rgba(212,148,58,.22);border-radius:40px;font-size:.56rem;letter-spacing:4px;text-transform:uppercase;color:var(--honey);margin-bottom:18px;backdrop-filter:blur(4px);background:rgba(212,148,58,.03);font-family:'Tajawal',sans-serif}
+.s-title{font-family:'Amiri',serif;font-size:clamp(2rem,4vw,3.4rem);font-weight:700;margin-bottom:14px;color:var(--ivory);line-height:1.15}
+.s-title b{background:var(--warm-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:700}
+.s-desc{font-size:.9rem;color:var(--silver-light);line-height:2;max-width:580px;font-weight:300}
+.s-line{width:50px;height:2px;background:var(--accent-gradient);margin:18px 0;border-radius:4px}
+
+/* ===== GLASS CARD ===== */
+.gc{background:var(--glass);backdrop-filter:blur(18px);border:1px solid var(--glass-border);border-radius:20px;padding:36px;transition:all .55s cubic-bezier(.25,.46,.45,.94);position:relative;overflow:hidden}
+.gc::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(212,148,58,.02),transparent,rgba(139,26,26,.015));opacity:0;transition:opacity .5s}
+.gc:hover::after{opacity:1}
+.gc:hover{border-color:rgba(212,148,58,.14);transform:translateY(-7px);box-shadow:0 28px 70px rgba(0,0,0,.35),0 0 0 1px rgba(212,148,58,.06)}
+
+/* ===== ARABIC ===== */
+.ar-bg{direction:rtl;text-align:right;background:linear-gradient(180deg,var(--obsidian) 0%,var(--obsidian-mid) 50%,var(--obsidian) 100%)}
+.ar-t{font-family:'Amiri',serif;font-size:clamp(2.2rem,4.5vw,3.6rem);font-weight:700;margin-bottom:16px;background:linear-gradient(135deg,var(--ivory),var(--honey-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ar-p{font-family:'Tajawal',sans-serif;font-size:1.02rem;line-height:2.2;color:var(--silver-light)}
+.arc{background:var(--glass);backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:20px;padding:34px;transition:all .5s;direction:rtl;text-align:right;position:relative;overflow:hidden}
+.arc:hover{border-color:rgba(212,148,58,.14);transform:translateY(-7px);box-shadow:0 24px 55px rgba(0,0,0,.3)}
+.arc-i{width:56px;height:56px;background:var(--accent-gradient);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:18px;transition:all .4s;box-shadow:0 8px 24px var(--honey-glow)}
+.arc:hover .arc-i{transform:scale(1.12) rotate(6deg);box-shadow:0 14px 35px var(--honey-glow)}
+.arc h3{font-family:'Tajawal',sans-serif;font-size:1.15rem;font-weight:700;margin-bottom:9px;color:var(--ivory)}
+.arc p{font-family:'Tajawal',sans-serif;color:var(--silver-light);line-height:1.85;font-size:.86rem}
+
+/* ===== FEAT ===== */
+.fi{width:60px;height:60px;background:linear-gradient(135deg,rgba(212,148,58,.1),rgba(212,148,58,.03));border:1px solid rgba(212,148,58,.08);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:18px;transition:all .4s}
+.gc:hover .fi{background:var(--accent-gradient);border-color:transparent;transform:scale(1.12) rotate(6deg);box-shadow:0 10px 28px var(--honey-glow)}
+
+/* ===== SHOWCASE ===== */
+.sc-bg{background:radial-gradient(ellipse at center,var(--obsidian-mid) 0%,var(--obsidian) 75%);overflow:hidden;position:relative}
+.sc-bg::before{content:'';position:absolute;top:12%;left:50%;transform:translateX(-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(212,148,58,.04),transparent 60%);pointer-events:none}
+.sc-wrap{position:relative;max-width:580px;margin:60px auto 0}
+.sc-img{width:100%;border-radius:28px;filter:drop-shadow(0 40px 90px var(--honey-glow));animation:scFl 9s ease-in-out infinite;transition:transform .4s}
+.sc-spot{position:absolute;top:-35%;left:50%;transform:translateX(-50%);width:260%;height:85%;background:radial-gradient(ellipse,rgba(212,148,58,.05),transparent 50%);pointer-events:none}
+@keyframes scFl{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-24px) scale(1.012)}}
+
+/* ===== STATS ===== */
+.st-c{text-align:center;padding:44px 18px}
+.st-n{font-family:'Amiri',serif;font-size:3rem;font-weight:700;background:var(--warm-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px}
+.st-l{font-size:.66rem;letter-spacing:3px;text-transform:uppercase;color:var(--silver)}
+
+/* ===== CMP ===== */
+.cmp{display:flex;align-items:flex-start;gap:18px;padding:24px 0;border-bottom:1px solid var(--glass-border)}
+.cmp:last-child{border-bottom:none}
+.cmp-ic{width:44px;height:44px;min-width:44px;background:linear-gradient(135deg,rgba(212,148,58,.1),rgba(212,148,58,.03));border:1px solid rgba(212,148,58,.08);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:.95rem;color:var(--honey)}
+.cmp-t h4{font-size:.9rem;font-weight:600;margin-bottom:3px;color:var(--ivory)}
+.cmp-t p{font-size:.8rem;color:var(--silver-light);line-height:1.65}
+
+/* ===== ORDER ===== */
+.ord-bg{background:linear-gradient(180deg,var(--obsidian) 0%,var(--obsidian-mid) 50%,var(--obsidian) 100%)}
+.ord-w{max-width:700px;margin:0 auto}
+.fg{margin-bottom:24px}
+.fl{display:flex;justify-content:space-between;margin-bottom:7px;font-size:.8rem;color:var(--silver-light)}
+.fl .ar{font-family:'Tajawal',sans-serif}
+.fin{width:100%;padding:16px 20px;background:var(--glass);border:1px solid var(--glass-border);border-radius:14px;color:var(--ivory);font-size:.9rem;font-family:'Inter','Tajawal',sans-serif;transition:all .35s;outline:none;backdrop-filter:blur(8px)}
+.fin:focus{border-color:var(--honey);box-shadow:0 0 30px rgba(212,148,58,.08)}
+.fin::placeholder{color:rgba(255,255,255,.14)}
+textarea.fin{min-height:120px;resize:vertical}
+.qr{display:flex;align-items:center}
+.qb{width:52px;height:52px;background:var(--glass);border:1px solid var(--glass-border);color:var(--honey);font-size:1.3rem;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center}
+.qb:first-child{border-radius:14px 0 0 14px}
+.qb:last-child{border-radius:0 14px 14px 0}
+.qb:hover{background:rgba(212,148,58,.08)}
+.qi{width:76px;height:52px;background:var(--glass);border:1px solid var(--glass-border);border-left:none;border-right:none;color:var(--ivory);font-size:1.05rem;text-align:center;font-family:'Inter',sans-serif;outline:none}
+.ob{width:100%;padding:18px;background:var(--accent-gradient);color:var(--obsidian);font-size:.85rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;border:none;border-radius:50px;cursor:pointer;transition:all .4s;display:flex;align-items:center;justify-content:center;gap:12px;font-family:'Tajawal','Inter',sans-serif;margin-top:8px;position:relative;overflow:hidden}
+.ob::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);transition:left .5s}
+.ob:hover::before{left:100%}
+.ob:hover{transform:translateY(-3px);box-shadow:0 18px 55px var(--honey-glow)}
+
+/* ===== TESTI ===== */
+.tc{background:var(--glass);backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:20px;padding:36px;transition:all .5s}
+.tc:hover{border-color:rgba(212,148,58,.14);transform:translateY(-7px);box-shadow:0 24px 60px rgba(0,0,0,.3)}
+.tc-s{color:var(--honey-light);font-size:.9rem;margin-bottom:14px;letter-spacing:4px}
+.tc-p{font-size:.9rem;line-height:1.95;color:var(--silver-light);margin-bottom:20px;font-style:italic}
+.tc-a{display:flex;align-items:center;gap:14px}
+.tc-av{width:46px;height:46px;background:var(--accent-gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--obsidian);font-size:.9rem}
+.tc-inf h4{font-size:.85rem;font-weight:600;color:var(--ivory)}
+.tc-inf p{font-size:.7rem;color:var(--silver)}
+
+/* ===== FAQ ===== */
+.fqi{border:1px solid var(--glass-border);border-radius:16px;margin-bottom:12px;overflow:hidden;background:var(--glass);backdrop-filter:blur(8px);transition:all .3s}
+.fqi.on{border-color:rgba(212,148,58,.14)}
+.fqq{padding:20px 24px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:background .3s;gap:12px}
+.fqq:hover{background:rgba(212,148,58,.02)}
+.fqq h4{font-size:.86rem;font-weight:500;flex:1;line-height:1.5}
+.fqt{width:32px;height:32px;min-width:32px;border-radius:50%;background:rgba(212,148,58,.07);display:flex;align-items:center;justify-content:center;color:var(--honey);transition:all .35s;font-size:1.1rem}
+.fqi.on .fqt{transform:rotate(45deg);background:var(--accent-gradient);color:var(--obsidian)}
+.fqa{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.25,.46,.45,.94)}
+.fqa-in{padding:0 24px 20px;color:var(--silver-light);line-height:1.95;font-size:.84rem}
+
+/* ===== FOOTER ===== */
+.foot{position:relative;z-index:1;border-top:1px solid var(--glass-border);padding:70px 22px 32px;background:rgba(10,6,4,.92);backdrop-filter:blur(20px)}
+.foot-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2.2fr 1fr 1fr;gap:60px;margin-bottom:48px}
+.foot-brand h3{font-family:'Amiri',serif;font-size:1.3rem;color:var(--honey-light);margin-bottom:14px;font-weight:700}
+.foot-brand p{color:var(--silver);font-size:.83rem;line-height:1.85;max-width:340px}
+.foot-soc{display:flex;gap:10px;margin-top:22px}
+.foot-soc a{width:40px;height:40px;border:1px solid var(--glass-border);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--silver);text-decoration:none;transition:all .3s;font-size:.82rem}
+.foot-soc a:hover{border-color:var(--honey);color:var(--honey);transform:translateY(-3px)}
+.foot-lnk h4{font-size:.62rem;letter-spacing:3px;text-transform:uppercase;color:var(--honey);margin-bottom:18px}
+.foot-lnk a{display:block;color:var(--silver);text-decoration:none;font-size:.8rem;padding:5px 0;transition:color .3s}
+.foot-lnk a:hover{color:var(--honey-light)}
+.foot-btm{max-width:1200px;margin:0 auto;padding-top:30px;border-top:1px solid var(--glass-border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.foot-btm p{font-size:.72rem;color:var(--silver)}
+@media(max-width:768px){.foot-grid{grid-template-columns:1fr;gap:36px}.foot-btm{flex-direction:column;text-align:center}}
+
+/* ===== REVEAL ===== */
+.rv{opacity:0;transform:translateY(45px);transition:all .85s cubic-bezier(.22,.61,.36,1)}.rv.on{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}.d5{transition-delay:.4s}.d6{transition-delay:.48s}
+
+/* ===== BTT ===== */
+.btt{position:fixed;bottom:28px;right:28px;width:48px;height:48px;background:var(--accent-gradient);border:none;border-radius:50%;color:var(--obsidian);font-size:1.1rem;cursor:pointer;z-index:999;opacity:0;visibility:hidden;transition:all .4s;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px var(--honey-glow)}
+.btt.vis{opacity:1;visibility:visible}
+.btt:hover{transform:translateY(-4px);box-shadow:0 14px 44px var(--honey-glow)}
+
+/* ===== GLOW ===== */
+.glow-sep{position:relative;z-index:1;height:1px;background:linear-gradient(90deg,transparent,var(--honey-glow),rgba(139,26,26,.08),var(--honey-glow),transparent);margin:0;border:none}
+
+/* ===== GRIDS ===== */
+.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:24px}
+.g4{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px}
+.g6{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px}
+.tc-c{text-align:center}.mx{margin-left:auto;margin-right:auto}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+<div class="ld-icon">🍯</div>
+<div class="ld-brand">العسل الملكي للرجال</div>
+<div class="ld-tag">Premium Royal Honey</div>
+<div class="ld-honey-drip"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+<div class="ld-pct" id="ldPct">0%</div>
+</div>
+
+<!-- CURSOR -->
+<div class="cur-ring" id="cR"></div>
+<div class="cur-dot" id="cD"></div>
+
+<!-- THREE.JS -->
+<canvas id="c3d"></canvas>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+<a href="#" class="nav-logo"><span>🍯</span> العسل الملكي للرجال</a>
+<div class="nav-links">
+<a href="#arabic">المنتج</a>
+<a href="#features">Features</a>
+<a href="#showcase">Showcase</a>
+<a href="#faq">FAQ</a>
+<a href="#order" class="nav-cta">اطلب الآن</a>
+</div>
+<button class="ham" id="hamBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mnav" id="mNav">
+<button class="mnav-x" id="mClose">✕</button>
+<a href="#arabic" onclick="cMob()">المنتج</a>
+<a href="#features" onclick="cMob()">المميزات</a>
+<a href="#showcase" onclick="cMob()">العرض</a>
+<a href="#benefits" onclick="cMob()">الفوائد</a>
+<a href="#order" onclick="cMob()">اطلب الآن</a>
+<a href="#faq" onclick="cMob()">الأسئلة الشائعة</a>
+</div>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero" id="hero">
+<div class="hero-in">
+<div class="hero-left">
+<div class="h-badge" id="aHB"><span class="h-badge-dot"></span>منتج فاخر طبيعي ١٠٠٪</div>
+<h1 class="h-title" id="aHT"><span class="t-honey">العسل الملكي</span><br><span class="t-ivory">للرجال</span></h1>
+<p class="h-sub" id="aHS">اكتشف سر القوة والحيوية مع العسل الملكي الأصلي الفاخر. تركيبة طبيعية نادرة من أجود أنواع العسل الملكي الماليزي المعزز بخلاصات طبيعية مختارة بعناية لتمنحك طاقة وحيوية لا مثيل لها.</p>
+<div class="h-btns" id="aHBtn">
+<a href="#order" class="btn-p">
+<span>اطلب الآن</span>
+<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+</a>
+<a href="#arabic" class="btn-g">اكتشف المزيد</a>
+</div>
+</div>
+<div class="hero-right">
+<div class="h-img-wrap" id="hIW">
+<div class="h-orb h-orb-1"></div>
+<div class="h-orb h-orb-2"></div>
+<div class="h-orb h-orb-3"></div>
+<img src="https://i.imgur.com/ThTfTYu.jpeg" alt="العسل الملكي للرجال" class="h-img" id="hImg" loading="eager">
+<div class="h-orbit"></div>
+<div class="h-orbit"></div>
+</div>
+</div>
+</div>
+<div class="scroll-ind"><span>Scroll</span><div class="scroll-ln"></div></div>
+</section>
+
+<hr class="glow-sep">
+
+<!-- ==================== ARABIC SECTION (FIRST) ==================== -->
+<section class="sect ar-bg" id="arabic">
+<div class="sect-in">
+<div class="rv tc-c" style="direction:rtl;margin-bottom:68px">
+<div class="s-badge">المنتج الأصلي</div>
+<h2 class="ar-t">العسل الملكي للرجال</h2>
+<div class="s-line mx" style="margin:18px auto"></div>
+<p class="ar-p mx" style="max-width:760px">
+العسل الملكي للرجال — المنتج الأصلي الفاخر من أجود أنواع العسل الملكي الماليزي الطبيعي. تركيبة سرية متوارثة عبر الأجيال، معززة بغذاء ملكات النحل الطازج وخلاصة جذور التونغكات علي الأصلية وحبوب اللقاح النقية. يعمل على تعزيز القوة والحيوية والطاقة بشكل طبيعي وآمن. منتج أصلي ١٠٠٪ مرخّص ومعتمد بأعلى معايير الجودة العالمية.
+</p>
+</div>
+
+<!-- Arabic Feature Cards -->
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;direction:rtl">
+<div class="arc rv d1">
+<div class="arc-i">👑</div>
+<h3>غذاء ملكات النحل</h3>
+<p>غني بغذاء ملكات النحل الطازج والنقي، المعروف بفوائده الاستثنائية في تعزيز الحيوية والطاقة والقدرة على التحمل</p>
+</div>
+<div class="arc rv d2">
+<div class="arc-i">🌿</div>
+<h3>تونغكات علي</h3>
+<p>يحتوي على خلاصة جذور التونغكات علي الماليزية الأصلية، الأكثر شهرة في تعزيز القوة والنشاط لدى الرجال</p>
+</div>
+<div class="arc rv d3">
+<div class="arc-i">⚡</div>
+<h3>طاقة فورية</h3>
+<p>يمنحك دفعة طاقة قوية وفورية تدوم لساعات طويلة بدون أي آثار جانبية أو شعور بالتعب والإرهاق</p>
+</div>
+<div class="arc rv d4">
+<div class="arc-i">🍯</div>
+<h3>عسل طبيعي ١٠٠٪</h3>
+<p>مصنوع من أنقى أنواع العسل الملكي الطبيعي بدون أي إضافات كيميائية أو مواد حافظة صناعية</p>
+</div>
+<div class="arc rv d5">
+<div class="arc-i">✅</div>
+<h3>مرخّص ومعتمد</h3>
+<p>منتج أصلي حاصل على جميع التراخيص والشهادات الصحية المطلوبة ومعتمد من الجهات الرقابية</p>
+</div>
+<div class="arc rv d6">
+<div class="arc-i">💎</div>
+<h3>تركيبة حصرية</h3>
+<p>مزيج فريد ونادر من المكونات الطبيعية المختارة بعناية فائقة لضمان أقصى فعالية ونتائج ملموسة</p>
+</div>
+</div>
+
+<!-- Arabic Benefits -->
+<div style="margin-top:90px;direction:rtl;text-align:center" class="rv">
+<div class="s-badge">الفوائد</div>
+<h2 class="ar-t" style="font-size:clamp(1.8rem,3vw,2.5rem)">فوائد العسل الملكي</h2>
+<div class="s-line mx" style="margin:18px auto"></div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px;margin-top:40px;direction:rtl">
+<div class="gc rv d1 tc-c" style="direction:rtl">
+<div style="font-size:2.4rem;margin-bottom:12px">💪</div>
+<h3 style="font-family:'Tajawal',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:8px">قوة وتحمّل</h3>
+<p style="font-family:'Tajawal',sans-serif;color:var(--silver-light);font-size:.82rem;line-height:1.85">يعزز القوة البدنية والقدرة على التحمل بشكل طبيعي وفعّال</p>
+</div>
+<div class="gc rv d2 tc-c" style="direction:rtl">
+<div style="font-size:2.4rem;margin-bottom:12px">🔥</div>
+<h3 style="font-family:'Tajawal',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:8px">حيوية ونشاط</h3>
+<p style="font-family:'Tajawal',sans-serif;color:var(--silver-light);font-size:.82rem;line-height:1.85">يمنحك طاقة وحيوية مستمرة طوال اليوم بدون إرهاق</p>
+</div>
+<div class="gc rv d3 tc-c" style="direction:rtl">
+<div style="font-size:2.4rem;margin-bottom:12px">🛡️</div>
+<h3 style="font-family:'Tajawal',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:8px">تعزيز المناعة</h3>
+<p style="font-family:'Tajawal',sans-serif;color:var(--silver-light);font-size:.82rem;line-height:1.85">يقوي جهاز المناعة ويحمي الجسم من الأمراض والالتهابات</p>
+</div>
+<div class="gc rv d4 tc-c" style="direction:rtl">
+<div style="font-size:2.4rem;margin-bottom:12px">🧠</div>
+<h3 style="font-family:'Tajawal',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:8px">تركيز ذهني</h3>
+<p style="font-family:'Tajawal',sans-serif;color:var(--silver-light);font-size:.82rem;line-height:1.85">يحسن التركيز والأداء الذهني ويقلل التوتر والإجهاد</p>
+</div>
+</div>
+</div>
+</section>
+
+<hr class="glow-sep">
+
+<!-- ==================== ENGLISH SECTION ==================== -->
+<section class="sect" id="english" style="background:linear-gradient(180deg,var(--obsidian) 0%,var(--obsidian-light) 50%,var(--obsidian) 100%)">
+<div class="sect-in">
+<div class="tc-c rv" style="margin-bottom:68px">
+<div class="s-badge">The Product</div>
+<h2 class="s-title"><b>Royal Honey</b> for Men</h2>
+<div class="s-line mx" style="margin:18px auto"></div>
+<p class="s-desc mx">The original premium Malaysian Royal Honey — a legendary natural formula trusted for generations. Enriched with pure Royal Jelly, Tongkat Ali root extract, and bee pollen for unparalleled vitality, strength, and endurance. 100% authentic, certified, and naturally powerful.</p>
+</div>
+<div class="g3" style="margin-top:50px">
+<div class="gc rv d1">
+<h3 style="font-size:1.08rem;font-weight:700;margin-bottom:12px;color:var(--honey-light)">Pure Royal Jelly</h3>
+<p style="color:var(--silver-light);line-height:1.9;font-size:.85rem">Fresh, unprocessed Royal Jelly — nature's most potent superfood. Packed with B-vitamins, amino acids, fatty acids, and bioactive compounds that support energy production, hormonal balance, and overall male vitality.</p>
+</div>
+<div class="gc rv d2">
+<h3 style="font-size:1.08rem;font-weight:700;margin-bottom:12px;color:var(--honey-light)">Tongkat Ali Extract</h3>
+<p style="color:var(--silver-light);line-height:1.9;font-size:.85rem">Premium Eurycoma Longifolia extract sourced directly from the Malaysian rainforest. Clinically proven to boost testosterone levels naturally, enhance physical performance, and support healthy stress response.</p>
+</div>
+<div class="gc rv d3">
+<h3 style="font-size:1.08rem;font-weight:700;margin-bottom:12px;color:var(--honey-light)">100% Authentic Formula</h3>
+<p style="color:var(--silver-light);line-height:1.9;font-size:.85rem">Every batch is certified authentic with holographic verification. Manufactured under strict GMP standards with full traceability from hive to product. No artificial additives, preservatives, or synthetic ingredients.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ==================== FEATURES ==================== -->
+<section class="sect" id="features">
+<div class="sect-in">
+<div class="tc-c rv" style="margin-bottom:68px">
+<div class="s-badge">Features</div>
+<h2 class="s-title">Why <b>Royal Honey</b> Is Superior</h2>
+<div class="s-line mx" style="margin:18px auto"></div>
+<p class="s-desc mx">Every element crafted for maximum potency and authentic quality.</p>
+</div>
+<div class="g6">
+<div class="gc rv d1">
+<div class="fi">👑</div>
+<h3 style="font-size:1rem;font-weight:700;margin-bottom:9px">Premium Royal Jelly</h3>
+<p style="color:var(--silver-light);font-size:.83rem;line-height:1.78">Fresh royal jelly harvested within 24 hours for maximum potency and bioactive compound preservation.</p>
+</div>
+<div class="gc rv d2">
+<div class="fi">🌿</div>
+<h3 style="font-size:1rem;font-weight:700;margin-bottom:9px">Wild Tongkat Ali</h3>
+<p style="color:var(--silver-light);font-size:.83rem;line-height:1.78">Wild-harvested from pristine Malaysian rainforests. 200:1 concentration extract for maximum efficacy.</p>
+</div>
+<div class="gc rv d3">
+<div class="fi">🐝</div>
+<h3 style="font-size:1rem;font-weight:700;margin-bottom:9px">Pure Bee Pollen</h3>
+<p style="color:var(--silver-light);font-size:.83rem;line-height:1.78">Natural bee pollen rich in proteins, vitamins, and minerals to support stamina and immune function.</p>
+</div>
+<div class="gc rv d4">
+<div class="fi">✅</div>
+<h3 style="font-size:1rem;font-weight:700;margin-bottom:9px">Certified Authentic</h3>
+<p style="color:var(--silver-light);font-size:.83rem;line-height:1.78">Holographic seal of authenticity. Every product traceable and verified against counterfeits.</p>
+</div>
+<div class="gc rv d5">
+<div class="fi">🔬</div>
+<h3 style="font-size:1rem;font-weight:700;margin-bottom:9px">Lab Tested</h3>
+<p style="color:var(--silver-light);font-size:.83rem;line-height:1.78">Third-party laboratory tested for purity, safety, and potency. Free from contaminants and adulterants.</p>
+</div>
+<div class="gc rv d6">
+<div class="fi">📦</div>
+<h3 style="font-size:1rem;font-weight:700;margin-bottom:9px">Premium Packaging</h3>
+<p style="color:var(--silver-light);font-size:.83rem;line-height:1.78">Individual sachets sealed for freshness. Elegant luxury packaging worthy of this exceptional product.</p>
+</div>
+</div>
+</div>
+</section>
+
+<hr class="glow-sep">
+
+<!-- ==================== SHOWCASE ==================== -->
+<section class="sect sc-bg" id="showcase">
+<div class="sect-in tc-c">
+<div class="rv">
+<div class="s-badge">Showcase</div>
+<h2 class="s-title"><b>العسل الملكي</b> الأصلي</h2>
+<div class="s-line mx" style="margin:18px auto"></div>
+<p class="s-desc mx">The gold standard in premium royal honey — authentic, powerful, and trusted.</p>
+</div>
+<div class="sc-wrap rv" id="scW">
+<div class="sc-spot"></div>
+<img src="https://i.imgur.com/ThTfTYu.jpeg" alt="العسل الملكي للرجال Showcase" class="sc-img" id="scI" loading="lazy">
+</div>
+</div>
+</section>
+
+<!-- ==================== BENEFITS / STATS ==================== -->
+<section class="sect" id="benefits" style="background:linear-gradient(180deg,var(--obsidian) 0%,var(--obsidian-mid) 50%,var(--obsidian) 100%)">
+<div class="sect-in">
+<div class="tc-c rv" style="margin-bottom:68px">
+<div class="s-badge">Results</div>
+<h2 class="s-title">Trusted by <b>Thousands</b></h2>
+<div class="s-line mx" style="margin:18px auto"></div>
+</div>
+<div class="g4" style="margin-bottom:80px">
+<div class="gc st-c rv d1">
+<div class="st-n" data-target="100">0%</div>
+<div class="st-l">Natural</div>
+</div>
+<div class="gc st-c rv d2">
+<div class="st-n" data-target="50">0K+</div>
+<div class="st-l">Happy Customers</div>
+</div>
+<div class="gc st-c rv d3">
+<div class="st-n" data-target="98">0%</div>
+<div class="st-l">Satisfaction Rate</div>
+</div>
+<div class="gc st-c rv d4">
+<div class="st-n" data-target="12">0+</div>
+<div class="st-l">Premium Ingredients</div>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(400px,1fr));gap:50px;align-items:center">
+<div class="rv">
+<h3 style="font-family:'Amiri',serif;font-size:1.6rem;font-weight:700;margin-bottom:34px;color:var(--ivory)">لماذا تختار <span style="color:var(--honey-light)">العسل الملكي</span>؟</h3>
+<div class="cmp"><div class="cmp-ic">✓</div><div class="cmp-t"><h4>منتج أصلي مضمون</h4><p>أصلي ١٠٠٪ مع ختم الأصالة الهولوغرامي. كل عبوة قابلة للتتبع والتحقق.</p></div></div>
+<div class="cmp"><div class="cmp-ic">✓</div><div class="cmp-t"><h4>مكونات طبيعية فائقة</h4><p>غذاء ملكات نحل طازج + تونغكات علي بري + حبوب لقاح نقية + عسل ملكي أصلي.</p></div></div>
+<div class="cmp"><div class="cmp-ic">✓</div><div class="cmp-t"><h4>نتائج سريعة وفعّالة</h4><p>تأثير ملحوظ وسريع يشعر به المستخدم. فعالية مثبتة من آلاف العملاء الراضين.</p></div></div>
+<div class="cmp"><div class="cmp-ic">✓</div><div class="cmp-t"><h4>آمن بدون آثار جانبية</h4><p>تركيبة طبيعية آمنة تماماً بدون أي مواد كيميائية أو أدوية أو آثار جانبية.</p></div></div>
+<div class="cmp"><div class="cmp-ic">✓</div><div class="cmp-t"><h4>معتمد ومرخّص دولياً</h4><p>حاصل على شهادات GMP وجميع التراخيص الصحية المطلوبة محلياً ودولياً.</p></div></div>
+</div>
+<div class="rv d2" style="display:flex;align-items:center;justify-content:center">
+<img src="https://i.imgur.com/ThTfTYu.jpeg" alt="العسل الملكي للرجال" style="max-width:400px;width:100%;border-radius:24px;filter:drop-shadow(0 28px 65px var(--honey-glow));animation:hFloat 8s ease-in-out infinite" loading="lazy">
+</div>
+</div>
+</div>
+</section>
+
+<hr class="glow-sep">
+
+<!-- ==================== ORDER FORM ==================== -->
+<section class="sect ord-bg" id="order">
+<div class="sect-in">
+<div class="tc-c rv" style="margin-bottom:50px">
+<div class="s-badge">اطلب الآن</div>
+<h2 class="s-title">اطلب الآن | <b>Order Now</b></h2>
+<div class="s-line mx" style="margin:18px auto"></div>
+<p class="s-desc mx">أكمل النموذج أدناه لتقديم طلبك فوراً عبر واتساب.</p>
+</div>
+<div class="ord-w">
+<div class="gc rv" style="padding:50px 46px">
+<div style="display:flex;align-items:center;gap:18px;margin-bottom:40px;padding-bottom:26px;border-bottom:1px solid var(--glass-border)">
+<img src="https://i.imgur.com/ThTfTYu.jpeg" alt="العسل الملكي للرجال" style="width:74px;height:74px;border-radius:16px;object-fit:cover;border:1px solid var(--glass-border)">
+<div>
+<h3 style="font-size:1.1rem;font-weight:700;font-family:'Amiri',serif;color:var(--honey-light)">العسل الملكي للرجال</h3>
+<p style="color:var(--honey);font-size:.78rem;font-family:'Tajawal',sans-serif">Royal Honey for Men | Premium Quality</p>
+</div>
+</div>
+<form id="oForm" onsubmit="doOrder(event)">
+<div class="fg">
+<div class="fl"><span>Quantity</span><span class="ar">العدد</span></div>
+<div class="qr">
+<button type="button" class="qb" onclick="cQ(-1)">−</button>
+<input type="number" id="qty" class="qi" value="1" min="1" max="99">
+<button type="button" class="qb" onclick="cQ(1)">+</button>
+</div>
+</div>
+<div class="fg">
+<div class="fl"><span>Location</span><span class="ar">الموقع</span></div>
+<input type="text" id="loc" class="fin" placeholder="أدخل موقع التوصيل / Enter delivery location" required>
+</div>
+<div class="fg">
+<div class="fl"><span>Note</span><span class="ar">ملاحظة</span></div>
+<textarea id="note" class="fin" placeholder="أي ملاحظات إضافية / Any additional notes"></textarea>
+</div>
+<button type="submit" class="ob">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.75.75 0 00.917.918l4.462-1.494A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.24 0-4.32-.726-6.006-1.957a.75.75 0 00-.598-.108l-3.2 1.07 1.072-3.202a.75.75 0 00-.109-.597A9.958 9.958 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+<span>اطلب الآن عبر واتساب | Order via WhatsApp</span>
+</button>
+</form>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ==================== TESTIMONIALS ==================== -->
+<section class="sect" id="testimonials">
+<div class="sect-in">
+<div class="tc-c rv" style="margin-bottom:68px">
+<div class="s-badge">آراء العملاء</div>
+<h2 class="s-title">ماذا يقول <b>عملاؤنا</b></h2>
+<div class="s-line mx" style="margin:18px auto"></div>
+</div>
+<div class="g3">
+<div class="tc rv d1">
+<div class="tc-s">★★★★★</div>
+<p class="tc-p" style="font-family:'Tajawal',sans-serif;direction:rtl;text-align:right">"منتج ممتاز والله! حسيت بفرق كبير من أول استخدام. الطاقة والنشاط اللي حسيت فيهم شي ما توقعته. منتج أصلي وفعّال ١٠٠٪ وأنصح فيه بقوة."</p>
+<div class="tc-a"><div class="tc-av">أ</div><div class="tc-inf"><h4 style="font-family:'Tajawal',sans-serif">أحمد س.</h4><p>عميل موثق</p></div></div>
+</div>
+<div class="tc rv d2">
+<div class="tc-s">★★★★★</div>
+<p class="tc-p" style="font-family:'Tajawal',sans-serif;direction:rtl;text-align:right">"جربت أنواع كثيرة من العسل الملكي بس هذا المنتج مختلف تماماً. الجودة واضحة والنتيجة أكثر من رائعة. صار عندي طاقة وحيوية ما عمري حسيت فيها قبل."</p>
+<div class="tc-a"><div class="tc-av">خ</div><div class="tc-inf"><h4 style="font-family:'Tajawal',sans-serif">خالد م.</h4><p>عميل موثق</p></div></div>
+</div>
+<div class="tc rv d3">
+<div class="tc-s">★★★★★</div>
+<p class="tc-p">"I was skeptical at first, but this Royal Honey is the real deal. Authentic Malaysian quality, incredible energy boost, and the results are consistent every single time. Highly recommended."</p>
+<div class="tc-a"><div class="tc-av">M</div><div class="tc-inf"><h4>Mike R.</h4><p>Verified Buyer</p></div></div>
+</div>
+</div>
+</div>
+</section>
+
+<hr class="glow-sep">
+
+<!-- ==================== FAQ ==================== -->
+<section class="sect" id="faq" style="background:linear-gradient(180deg,var(--obsidian) 0%,var(--obsidian-mid) 50%,var(--obsidian) 100%)">
+<div class="sect-in">
+<div class="tc-c rv" style="margin-bottom:58px">
+<div class="s-badge">الأسئلة الشائعة</div>
+<h2 class="s-title">الأسئلة الشائعة | <b>FAQ</b></h2>
+<div class="s-line mx" style="margin:18px auto"></div>
+</div>
+<div style="max-width:820px;margin:0 auto">
+<div class="fqi rv d1">
+<div class="fqq" onclick="tFaq(this)">
+<h4>ما هو العسل الملكي للرجال؟ | What is Royal Honey for Men?</h4>
+<div class="fqt">+</div>
+</div>
+<div class="fqa"><div class="fqa-in">
+هو منتج طبيعي فاخر مصنوع من أجود أنواع العسل الملكي الماليزي، معزز بغذاء ملكات النحل وخلاصة التونغكات علي وحبوب اللقاح لتعزيز القوة والحيوية بشكل طبيعي وآمن.<br><br>
+It's a premium natural product made from the finest Malaysian Royal Honey, enriched with Royal Jelly, Tongkat Ali extract, and Bee Pollen to naturally boost vitality, strength, and energy.
+</div></div>
+</div>
+<div class="fqi rv d2">
+<div class="fqq" onclick="tFaq(this)">
+<h4>هل المنتج أصلي؟ | Is it authentic?</h4>
+<div class="fqt">+</div>
+</div>
+<div class="fqa"><div class="fqa-in">
+نعم، المنتج أصلي ١٠٠٪ ومستورد مباشرة من ماليزيا. كل عبوة تحمل ختم الأصالة الهولوغرامي ورقم تسلسلي للتحقق. نحن نوفر فقط المنتج الأصلي المرخّص.<br><br>
+Absolutely. The product is 100% authentic and directly imported from Malaysia. Each package carries a holographic authenticity seal and serial number for verification. We only supply certified original products.
+</div></div>
+</div>
+<div class="fqi rv d3">
+<div class="fqq" onclick="tFaq(this)">
+<h4>كيف أستخدم المنتج؟ | How do I use it?</h4>
+<div class="fqt">+</div>
+</div>
+<div class="fqa"><div class="fqa-in">
+يُؤخذ كيس واحد قبل الاستخدام بنصف ساعة إلى ساعة. يمكن تناوله مباشرة أو مزجه مع كوب من الماء الدافئ. لا تتجاوز كيس واحد كل ٣ أيام.<br><br>
+Take one sachet 30-60 minutes before needed. Can be consumed directly or mixed with a glass of warm water. Do not exceed one sachet every 3 days.
+</div></div>
+</div>
+<div class="fqi rv d4">
+<div class="fqq" onclick="tFaq(this)">
+<h4>هل هناك آثار جانبية؟ | Any side effects?</h4>
+<div class="fqt">+</div>
+</div>
+<div class="fqa"><div class="fqa-in">
+المنتج طبيعي ١٠٠٪ وآمن للاستخدام عند الالتزام بالجرعة الموصى بها. لا يُنصح باستخدامه لمن يعانون من أمراض مزمنة أو يتناولون أدوية بدون استشارة الطبيب.<br><br>
+The product is 100% natural and safe when used as directed. It is not recommended for those with chronic conditions or taking medications without consulting a physician first.
+</div></div>
+</div>
+<div class="fqi rv d5">
+<div class="fqq" onclick="tFaq(this)">
+<h4>كيف يتم الطلب والتوصيل؟ | How to order & delivery?</h4>
+<div class="fqt">+</div>
+</div>
+<div class="fqa"><div class="fqa-in">
+أكمل نموذج الطلب أعلاه واضغط "اطلب الآن". سيتم فتح واتساب تلقائياً مع تفاصيل طلبك. فريقنا سيتواصل معك فوراً لتأكيد الطلب وترتيب التوصيل لموقعك.<br><br>
+Complete the order form above and click "Order Now." WhatsApp will open automatically with your order details. Our team will contact you immediately to confirm and arrange delivery to your location.
+</div></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="foot">
+<div class="foot-grid">
+<div class="foot-brand">
+<h3>🍯 العسل الملكي للرجال</h3>
+<p style="font-family:'Tajawal',sans-serif;direction:rtl;text-align:right">المنتج الأصلي الفاخر للقوة والحيوية. جودة عالمية وتركيبة طبيعية استثنائية لحياة أفضل.</p>
+<div class="foot-soc">
+<a href="#" aria-label="Instagram">📷</a>
+<a href="#" aria-label="Facebook">📘</a>
+<a href="#" aria-label="TikTok">🎵</a>
+<a href="#" aria-label="WhatsApp">💬</a>
+</div>
+</div>
+<div class="foot-lnk">
+<h4>روابط سريعة</h4>
+<a href="#arabic">المنتج</a>
+<a href="#features">المميزات</a>
+<a href="#showcase">العرض</a>
+<a href="#benefits">الفوائد</a>
+<a href="#order">اطلب الآن</a>
+</div>
+<div class="foot-lnk">
+<h4>الدعم</h4>
+<a href="#faq">الأسئلة الشائعة</a>
+<a href="#order">تواصل معنا</a>
+<a href="#">سياسة الشحن</a>
+<a href="#">سياسة الخصوصية</a>
+<a href="#">الشروط والأحكام</a>
+</div>
+</div>
+<div class="foot-btm">
+<p>&copy; 2025 العسل الملكي للرجال. جميع الحقوق محفوظة.</p>
+<p style="color:var(--honey);font-size:.66rem;letter-spacing:2px;font-family:'Tajawal',sans-serif">جودة فاخرة — منتج أصلي</p>
+</div>
+</footer>
+
+<!-- BTT -->
+<button class="btt" id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Top">↑</button>
+
+<!-- ==================== SCRIPTS ==================== -->
+<script>
+// ===== LOADER =====
+let ldP=0;const ldEl=document.getElementById('ldPct');
+const ldI=setInterval(()=>{ldP+=Math.random()*3+1;if(ldP>=100){ldP=100;clearInterval(ldI)}ldEl.textContent=Math.floor(ldP)+'%'},45);
+window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('loader').classList.add('done');heroGSAP()},3200)});
+
+// ===== CURSOR =====
+const cR=document.getElementById('cR'),cD=document.getElementById('cD');
+let mxC=0,myC=0,cxC=0,cyC=0;
+document.addEventListener('mousemove',e=>{mxC=e.clientX;myC=e.clientY;cD.style.left=mxC-2.5+'px';cD.style.top=myC-2.5+'px'});
+(function aC(){cxC+=(mxC-cxC)*.09;cyC+=(myC-cyC)*.09;cR.style.left=cxC-18+'px';cR.style.top=cyC-18+'px';requestAnimationFrame(aC)})();
+document.querySelectorAll('a,button,.gc,.arc,.tc,.fqq').forEach(el=>{el.addEventListener('mouseenter',()=>{cR.style.transform='scale(1.8)';cR.style.borderColor='var(--honey-light)'});el.addEventListener('mouseleave',()=>{cR.style.transform='scale(1)';cR.style.borderColor='var(--honey)'})});
+
+// ===== THREE.JS =====
+(function(){
+const cv=document.getElementById('c3d');
+const r=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:true});
+r.setSize(innerWidth,innerHeight);r.setPixelRatio(Math.min(devicePixelRatio,2));
+const s=new THREE.Scene(),cam=new THREE.PerspectiveCamera(75,innerWidth/innerHeight,.1,1000);
+cam.position.z=40;
+
+// Honey-like particles — warm tones
+const pg=new THREE.BufferGeometry(),ct=1600;
+const pos=new Float32Array(ct*3),col=new Float32Array(ct*3);
+for(let i=0;i<ct;i++){
+const i3=i*3;
+// Some particles in a flowing stream pattern
+if(i<150){
+const t=i/150*Math.PI*6;
+pos[i3]=Math.sin(t)*12+Math.sin(t*2)*3;
+pos[i3+1]=(i/150-.5)*90;
+pos[i3+2]=Math.cos(t)*12+Math.cos(t*3)*2;
+}else{
+pos[i3]=(Math.random()-.5)*120;
+pos[i3+1]=(Math.random()-.5)*120;
+pos[i3+2]=(Math.random()-.5)*120;
+}
+const t=Math.random();
+if(t<.4){col[i3]=.83;col[i3+1]=.58;col[i3+2]=.23}
+else if(t<.7){col[i3]=.94;col[i3+1]=.76;col[i3+2]=.43}
+else if(t<.9){col[i3]=.77;col[i3+1]=.48;col[i3+2]=.15}
+else{col[i3]=.55;col[i3+1]=.1;col[i3+2]=.1}
+}
+pg.setAttribute('position',new THREE.BufferAttribute(pos,3));
+pg.setAttribute('color',new THREE.BufferAttribute(col,3));
+const pm=new THREE.PointsMaterial({size:.055,vertexColors:true,transparent:true,opacity:.4,blending:THREE.AdditiveBlending});
+const pts=new THREE.Points(pg,pm);s.add(pts);
+
+// Geometric shapes — warm/organic feel
+const geos=[new THREE.IcosahedronGeometry(2,0),new THREE.OctahedronGeometry(1.5,0),new THREE.TorusGeometry(1.4,.2,16,40),new THREE.DodecahedronGeometry(1.4,0),new THREE.SphereGeometry(1.3,8,6),new THREE.TetrahedronGeometry(1.6,0)];
+const fos=[];
+const cols=[0xD4943A,0xB87A24,0xF0C36E,0x8B1A1A,0xC4955A,0xE8A849];
+for(let i=0;i<12;i++){
+const g=geos[i%geos.length];
+const m=new THREE.MeshPhongMaterial({color:cols[i%cols.length],transparent:true,opacity:.025,wireframe:true});
+const mesh=new THREE.Mesh(g,m);
+mesh.position.set((Math.random()-.5)*80,(Math.random()-.5)*80,(Math.random()-.5)*60-15);
+mesh.userData={rs:{x:Math.random()*.003,y:Math.random()*.004,z:Math.random()*.002},fs:Math.random()*.16+.05,fo:Math.random()*6.28};
+s.add(mesh);fos.push(mesh);
+}
+
+s.add(new THREE.AmbientLight(0xffffff,.08));
+const l1=new THREE.PointLight(0xD4943A,.8,90);l1.position.set(18,18,18);s.add(l1);
+const l2=new THREE.PointLight(0x8B1A1A,.35,80);l2.position.set(-18,-12,18);s.add(l2);
+const l3=new THREE.PointLight(0xF0C36E,.2,60);l3.position.set(0,25,-12);s.add(l3);
+
+let tmx=0,tmy=0;
+document.addEventListener('mousemove',e=>{tmx=(e.clientX/innerWidth-.5)*2;tmy=(e.clientY/innerHeight-.5)*2});
+
+let t=0;
+(function anim(){
+requestAnimationFrame(anim);t+=.005;
+pts.rotation.y+=.00012;pts.rotation.x+=.00005;
+cam.position.x+=(tmx*4-cam.position.x)*.01;
+cam.position.y+=(-tmy*4-cam.position.y)*.01;
+cam.lookAt(s.position);
+l1.position.x=Math.sin(t*.35)*22;l1.position.y=Math.cos(t*.25)*22;
+l2.position.x=Math.cos(t*.28)*18;l2.position.y=Math.sin(t*.4)*18;
+l3.position.z=Math.sin(t*.18)*12+6;
+fos.forEach(o=>{o.rotation.x+=o.userData.rs.x;o.rotation.y+=o.userData.rs.y;o.rotation.z+=o.userData.rs.z;o.position.y+=Math.sin(t*o.userData.fs+o.userData.fo)*.0025});
+r.render(s,cam);
+})();
+addEventListener('resize',()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();r.setSize(innerWidth,innerHeight)});
+})();
+
+// ===== HERO GSAP =====
+function heroGSAP(){
+gsap.from('#aHB',{opacity:0,y:30,duration:.8,delay:.05});
+gsap.from('#aHT',{opacity:0,y:60,duration:1.2,delay:.2,ease:'power3.out'});
+gsap.from('#aHS',{opacity:0,y:35,duration:.85,delay:.4});
+gsap.from('#aHBtn',{opacity:0,y:35,duration:.85,delay:.6});
+gsap.from('#hIW',{opacity:0,scale:.75,duration:1.5,delay:.25,ease:'back.out(1.5)'});
+}
+
+// ===== HERO PARALLAX =====
+const hIW=document.getElementById('hIW'),hSec=document.getElementById('hero');
+hSec.addEventListener('mousemove',e=>{const r=hSec.getBoundingClientRect();const x=((e.clientX-r.left)/r.width-.5)*26;const y=((e.clientY-r.top)/r.height-.5)*26;hIW.style.transform=`perspective(1200px) rotateY(${x*.2}deg) rotateX(${-y*.2}deg)`});
+hSec.addEventListener('mouseleave',()=>{hIW.style.transform='perspective(1200px) rotateY(0) rotateX(0)'});
+
+// ===== SHOWCASE PARALLAX =====
+const scW=document.getElementById('scW');
+if(scW){scW.addEventListener('mousemove',e=>{const r=scW.getBoundingClientRect();const x=((e.clientX-r.left)/r.width-.5)*22;const y=((e.clientY-r.top)/r.height-.5)*22;const i=document.getElementById('scI');if(i)i.style.transform=`perspective(1200px) rotateY(${x*.28}deg) rotateX(${-y*.28}deg) translateY(${Math.sin(Date.now()*.001)*6}px)`});scW.addEventListener('mouseleave',()=>{const i=document.getElementById('scI');if(i)i.style.transform=''})}
+
+// ===== NAV =====
+const nav=document.getElementById('nav'),btt=document.getElementById('btt');
+addEventListener('scroll',()=>{nav.classList.toggle('fixed',scrollY>50);btt.classList.toggle('vis',scrollY>500)});
+
+// ===== MOB NAV =====
+document.getElementById('hamBtn').addEventListener('click',()=>document.getElementById('mNav').classList.add('open'));
+document.getElementById('mClose').addEventListener('click',cMob);
+function cMob(){document.getElementById('mNav').classList.remove('open')}
+
+// ===== REVEAL =====
+function doRv(){document.querySelectorAll('.rv').forEach(el=>{if(el.getBoundingClientRect().top<innerHeight-55)el.classList.add('on')})}
+addEventListener('scroll',doRv);addEventListener('load',()=>setTimeout(doRv,3400));
+
+// ===== COUNTER =====
+function doCnt(){document.querySelectorAll('.st-n').forEach(c=>{if(c.dataset.done)return;if(c.getBoundingClientRect().top<innerHeight-30){c.dataset.done='1';const tgt=+c.dataset.target;const txt=c.textContent;const sfx=txt.replace(/[0-9]/g,'');let cur=0;const inc=tgt/55;const tm=setInterval(()=>{cur+=inc;if(cur>=tgt){cur=tgt;clearInterval(tm)}c.textContent=Math.floor(cur).toLocaleString()+sfx},28)}})}
+addEventListener('scroll',doCnt);
+
+// ===== FAQ =====
+function tFaq(el){const it=el.parentElement;const a=it.querySelector('.fqa');const on=it.classList.contains('on');document.querySelectorAll('.fqi').forEach(f=>{f.classList.remove('on');f.querySelector('.fqa').style.maxHeight=null});if(!on){it.classList.add('on');a.style.maxHeight=a.scrollHeight+'px'}}
+
+// ===== QTY =====
+function cQ(d){const i=document.getElementById('qty');let v=parseInt(i.value)||1;v+=d;if(v<1)v=1;if(v>99)v=99;i.value=v}
+
+// ===== WHATSAPP ORDER =====
+function doOrder(e){
+e.preventDefault();
+const q=document.getElementById('qty').value||'1';
+const l=document.getElementById('loc').value||'';
+const n=document.getElementById('note').value||'';
+if(!l.trim()){const el=document.getElementById('loc');el.focus();el.style.borderColor='var(--honey)';el.style.boxShadow='0 0 25px var(--honey-glow)';setTimeout(()=>{el.style.borderColor='';el.style.boxShadow=''},2500);return}
+const pn='العسل الملكي للرجال';
+const pi='https://i.imgur.com/ThTfTYu.jpeg';
+const msg=`مرحباً،
+
+أرغب بطلب هذا المنتج:
+
+اسم المنتج:
+${pn}
+
+رابط الصورة:
+${pi}
+
+العدد:
+${q}
+
+الموقع:
+${l}
+
+الملاحظة:
+${n||'لا يوجد'}
+
+---
+
+Hello,
+
+I would like to order this product.
+
+Product:
+${pn}
+
+Image:
+${pi}
+
+Quantity:
+${q}
+
+Location:
+${l}
+
+Note:
+${n||'N/A'}`;
+window.open('https://wa.me/96179191280?text='+encodeURIComponent(msg),'_blank');
+}
+
+// ===== GSAP SCROLL =====
+gsap.registerPlugin(ScrollTrigger);
+gsap.fromTo('#scI',{scale:.84,opacity:.4},{scale:1,opacity:1,scrollTrigger:{trigger:'#showcase',start:'top 82%',end:'center center',scrub:1.2}});
+
+// ===== ANCHORS =====
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();const t=document.querySelector(this.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
+</script>
+</body>
+</html>
